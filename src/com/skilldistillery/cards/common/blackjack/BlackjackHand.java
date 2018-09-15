@@ -5,11 +5,11 @@ import java.util.List;
 import com.skilldistillery.cards.common.*;
 
 public class BlackjackHand extends Hand {
-
+	
 	public BlackjackHand() {
-
-	}
-
+			
+		}
+	
 	public int getHandValue(List<Card> cardsInHand) {
 		int totalHandValue = 0;
 		for (Card card : cardsInHand) {

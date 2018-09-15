@@ -33,8 +33,8 @@ public class Deck {
 		int cardsRemaining = deckOfCards.size();
 		return cardsRemaining;
 	}
-
-	public Card dealCards() {
+	
+	public Card dealCard() {
 		Card drawnCard = deckOfCards.remove(0);
 		return drawnCard;
 		

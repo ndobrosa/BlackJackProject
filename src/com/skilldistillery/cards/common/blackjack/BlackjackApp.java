@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import com.skilldistillery.cards.common.Card;
 import com.skilldistillery.cards.common.Deck;
-import com.skilldistillery.cards.common.Hand;
 
 public class BlackjackApp {
 	Scanner sc = new Scanner(System.in);
@@ -27,34 +26,57 @@ public class BlackjackApp {
 	private void startGame() {
 
 		Deck deck = new Deck();
-		BlackjackHand dh = new BlackjackHand();
-		BlackjackHand ph = new BlackjackHand();
 		deck.shuffle();
 
 		String playAgain = "";
 		String hitStay = "";
 
 		while (!playAgain.toLowerCase().equals("no") && !playAgain.toLowerCase().equals("n")) {
-			Card playerCard = deck.dealCards();
-			Card dealerCard = deck.dealCards();
-			List<Card> playerHand = ph.addCard(playerCard);
-			List<Card> dealerHand = dh.addCard(dealerCard);
+			BlackjackHand dh = new BlackjackHand();
+			BlackjackHand ph = new BlackjackHand();
+			
+			Card playerCard = deck.dealCard();
+			List<Card> playerColl = ph.addCard(playerCard);
 			System.out.println("You were dealt: " + playerCard + ".");
-			System.out.println("The value of that card is " + ph.getHandValue(playerHand) + ".\n");
+			System.out.println("The value of that card is " + ph.getHandValue(playerColl) + ".\n");
+			
+			Card dealerCard = deck.dealCard();
+			List<Card> dealerColl = dh.addCard(dealerCard);
 			System.out.println("Dealer was dealt a secret card. \n");
-
-			playerCard = deck.dealCards();
-			playerHand = ph.addCard(playerCard);
+			
+			playerCard = deck.dealCard();
+			playerColl = ph.addCard(playerCard);
 			System.out.print("You were dealt: " + playerCard + ".");
 			System.out.print("You are currently holding: ");
-			ph.printHand(playerHand);
-			System.out.println("The total value of your hand is " + ph.getHandValue(playerHand) + ".\n");
-			dealerCard = deck.dealCards();
-			dealerHand = dh.addCard(dealerCard);
+			ph.printHand(playerColl);
+			System.out.println("The total value of your hand is " + ph.getHandValue(playerColl) + ".\n");
+//			givePlayerCard(deck, ph);
+			
+			dealerCard = deck.dealCard();
+			dealerColl = dh.addCard(dealerCard);
 			System.out.print("Dealer was dealt: " + dealerCard);
 			System.out.println(". The value of that card is " + dealerCard.getValue() + ".\n");
-
-//			do {
+			
+			do {
+				System.out.print("would you to [h]it or [s]tay? ");
+				try {
+					hitStay = sc.nextLine();
+				} catch (NoSuchElementException e) {
+					e.getStackTrace();
+				} catch (IllegalStateException e) {
+					e.getStackTrace();
+				}
+				
+				
+				if (hitStay.toLowerCase().equals("hit") || hitStay.toLowerCase().equals("h")) {
+					playerCard = deck.dealCard();
+					playerColl = ph.addCard(playerCard);
+					System.out.print("You were dealt: " + playerCard + ".");
+					System.out.print("You are currently holding: ");
+					ph.printHand(playerColl);
+					System.out.println("The total value of your hand is " + ph.getHandValue(playerColl) + ".\n");
+				}
+				
 //				playerCard = deck.dealCards();
 //				dealerCard = deck.dealCards();
 //
@@ -77,18 +99,35 @@ public class BlackjackApp {
 //					dh.printHand(dealerHand);
 //					System.out.println();
 //				}
-//
-//				System.out.print("would you to [h]it or [s]tay? ");
-//				try {
-//					hitStay = sc.nextLine();
-//				} catch (NoSuchElementException e) {
-//					e.getStackTrace();
-//				} catch (IllegalStateException e) {
-//					e.getStackTrace();
-//				}
-//			} while (hitStay.toLowerCase().equals("hit") || hitStay.toLowerCase().equals("h"));
+				
+			} while (hitStay.toLowerCase().equals("hit") || hitStay.toLowerCase().equals("h") && ph.getHandValue(playerColl) <= 21);
 
-			System.out.println("would you like to play again? ('yes'/'no')");
+			
+			if (ph.getHandValue(playerColl) > 21 ) {
+				System.out.print("You did not win that one, but that was so close! ");
+			}
+			else if (ph.getHandValue(playerColl) <= 21 ) {
+				if (dh.getHandValue(playerColl) < 17)
+				while (dh.getHandValue(dealerColl) < 17) {
+					System.out.println("The total value of dealer's hand is " + dh.getHandValue(playerColl));
+					System.out.println("Dealer hits.");
+					dealerCard = deck.dealCard();
+					dealerColl = dh.addCard(dealerCard);
+					System.out.print("Dealer was dealt: " + dealerCard + ". ");
+					System.out.print("Dealer is currently holding: ");
+					dh.printHand(dealerColl);
+					System.out.println();
+				}
+				else if (dh.getHandValue(dealerColl ) >= 17 && dh.getHandValue(dealerColl ) <= 21 ) {
+					System.out.print("Dealer is currently holding: ");
+					dh.printHand(dealerColl);
+					
+					System.out.println("The total value of dealer's hand is " + dh.getHandValue(playerColl) + ".\n");
+					System.out.println("Dealer stays.");
+				}
+			}
+			
+			System.out.println("Would you like to play again? ('yes'/'no')");
 			try {
 				playAgain = sc.nextLine();
 			} catch (NoSuchElementException e) {
@@ -101,10 +140,20 @@ public class BlackjackApp {
 					&& !playAgain.toLowerCase().equals("y") && !playAgain.toLowerCase().equals("n")) {
 				System.out.println("Wrong choice. Please chose whether you would like to play again! ('yes'/'no')");
 				playAgain = sc.nextLine();
+
 			}
+			
 
 		}
 
 	}
 
+//	private void givePlayerCard(Deck deck, Hand hand) {
+//		Card c = deck.dealCard();
+//		hand.addCard(c);
+//		System.out.print("You were dealt: " + c + ".");
+//		System.out.print("You are currently holding: ");
+//		System.out.println(hand.toString());
+//		System.out.println("The total value of your hand is " + hand.getHandValue() + ".\n");		
+//	}
 }
