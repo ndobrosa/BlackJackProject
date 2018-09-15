@@ -44,7 +44,7 @@ public class Card {
 
 	@Override
 	public String toString() {
-		return rank + " of " + suit + " with a value " + rank.getValue();
+		return rank.toString().toLowerCase() + " of " + suit;
 	}
 	
 	

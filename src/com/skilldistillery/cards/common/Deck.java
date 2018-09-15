@@ -34,8 +34,10 @@ public class Deck {
 		return cardsRemaining;
 	}
 
-	public void dealCards() {
-		System.out.println(deckOfCards.remove(0));
+	public Card dealCards() {
+		Card drawnCard = deckOfCards.remove(0);
+		return drawnCard;
+		
 	}
 
 	public void shuffle() {
