@@ -54,6 +54,7 @@ public class BlackjackApp {
 			printResults(ph, dh);
 			playMore = isAnotherRound(count);
 		}
+		sc.close();
 			
 	}
 
