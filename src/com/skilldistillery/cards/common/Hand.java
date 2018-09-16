@@ -10,24 +10,22 @@ public abstract class Hand {
 		
 	}
 	
-	public abstract int getHandValue(List<Card> cardsInHand);
+	public abstract int getHandValue();
 	
-	public List<Card> addCard(Card c) {
+	public void addCard(Card c) {
 		cardsInHand.add(c);
-		return cardsInHand;
 	}
 
 	
 	public List<Card> getCards() {
-		
-		return null;
+		return cardsInHand;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (Card card : cardsInHand) {
-			sb.append(card).append(" | ");
+			sb.append(" | ").append(card).append(" | ");
 		}
 		return sb.toString();
 	}

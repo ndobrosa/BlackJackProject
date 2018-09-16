@@ -10,7 +10,7 @@ public class BlackjackHand extends Hand {
 			
 		}
 	
-	public int getHandValue(List<Card> cardsInHand) {
+	public int getHandValue() {
 		int totalHandValue = 0;
 		for (Card card : cardsInHand) {
 			totalHandValue += card.getValue();

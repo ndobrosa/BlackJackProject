@@ -21,17 +21,17 @@ public class Deck {
 
 	}
 
-	public List<Card> getDeckOfCards() {
-		return deckOfCards;
-	}
+//	public List<Card> getDeckOfCards() {
+//		return deckOfCards;
+//	}
 
-	public void setDeckOfCards(List<Card> deckOfCards) {
-		this.deckOfCards = deckOfCards;
-	}
+//	public void setDeckOfCards(List<Card> deckOfCards) {
+//		this.deckOfCards = deckOfCards;
+//	}
 
 	public int checkDeckSize() {
-		int cardsRemaining = deckOfCards.size();
-		return cardsRemaining;
+//		int cardsRemaining = deckOfCards.size();
+		return deckOfCards.size();
 	}
 	
 	public Card dealCard() {
