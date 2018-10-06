@@ -23,11 +23,12 @@ public abstract class Hand {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (Card card : cardsInHand) {
-			sb.append(" | ").append(card).append(" | ");
-		}
-		return sb.toString();
+//		StringBuilder sb = new StringBuilder();
+//		for (Card card : cardsInHand) {
+//			sb.append(" | ").append(card).append(" | ");
+//		}
+//		return sb.toString();
+		return cardsInHand.toString();
 	}
 	
 	
